@@ -39,18 +39,22 @@ where:
 ## Setup Steps ##
 1. Setup a Liferay DXP
 2. Go to Objects and import Objects Folder using 'Object_Folder_ManyToManyPOC_34502_20250304154433737.json'
-3. Create or Import Students and Module records
-4. Blacklist Component:
+3. Blacklist Component:
 com.liferay.portal.search.rest.internal.resource.v1_0.SearchResultResourceImpl
-6. Update the constants in MWConstants based on the details in the environment, build and deploy the OSGi modules
-7. Trigger a reindex of the Student entity records
+4. Update the constants in MWConstants.java based on the details in the environment, build and deploy the OSGi modules
+- STUDENT_OBJECT_ENTRY_CLASS_NAME: Go to Control Panel > Configuration Search > Index Actions, search for 'Student' and copy it's Object Definition value without the brackets e.g. com.liferay.object.model.ObjectDefinition#G9X2
+- MODULE_OBJECT_DEFINITION_ID: The 'ID' value from the Module Object Definition.
+- MANY_TO_MANY_RELATIONSHIP_ID: Go to Control Panel > Objects > Student > Relationships. Open Chrome Dev Tools > Network and open the student_modules relationship. Find the /manage request in the Network traffic and copy the objectRelationshipId request parameter value e.g. 34614.
+- MANY_TO_MANY_REVERSE_RELATIONSHIP_ID: Go to Control Panel > Objects > Module > Relationships. Open Chrome Dev Tools > Network and open the student_modules relationship. Find the /manage request in the Network traffic and copy the objectRelationshipId request parameter value e.g. 34615.
+5. Create or Import Students and Module records
 
 ## OSGi Components & Modules ##
 1. portal-search-rest-impl-fragment / portal.search.rest.impl.fragment-1.0.0.jar: OSGi fragment module to export 'internal' packages used by MWSearchResultResourceImpl.
 2. portal-search-rest-impl-override / portal.search.rest.impl.override-1.0.0.jar: Contains all the custom code:
 - MWSearchResultResourceImpl.java: Override of OOTB class SearchResultResourceImpl to add the custom fields to the Student Headless API 'Search Result' entity.
 - MWSearchResult.java: Override of the OOTB class SearchResult to add the custom fields to the Student Headless API 'Search Result' entity.
-- MWConstants.java IDs to refer to entities, relationships and fields etc.
+- MWConstants.java IDs to refer to entities, relationships.
+- MWFieldConstants.java Field names.
 - ObjectEntryModelListener.java: Used to identify changes to the Module attributes so the mapped Student records can be reindex in Elasticsearch.
 - ObjectRelationshipLocalServiceServiceWrapper.java: Used to identify mapping addition, mapping deletion and Module deletion so the mapped Student records can be reindex in Elasticsearch.
 - StudentObjectEntryDocumentContributor.java: Adds the additional fields to the Student Elasticsearch document. 
