@@ -1,0 +1,32 @@
+{
+	"description_i18n": {
+		"en_US": "moduleDepartments"
+	},
+	"elementDefinition": {
+		"category": "custom",
+		"configuration": {
+			"queryConfiguration": {
+				"queryEntries": [
+					{
+						"clauses": [
+							{
+								"context": "query",
+								"occur": "filter",
+								"query": {
+									"term": {
+										"moduleDepartments": "${search.experiences.moduleDepartments}"
+									}
+								}
+							}
+						]
+					}
+				]
+			}
+		},
+		"icon": "custom-field"
+	},
+	"title_i18n": {
+		"en_US": "moduleDepartments"
+	},
+	"type": 0
+}
