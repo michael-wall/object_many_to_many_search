@@ -37,48 +37,48 @@ public class ObjectEntryModelListener extends BaseModelListener<ObjectEntry> {
 		String originalModuleName = "";
 		String newModuleName = "";
 		
-		if (originalValues.containsKey(MWConstants.MODULE_OBJECT_FIELDS.MODULE_NAME)) originalModuleName = (String)originalValues.get(MWConstants.MODULE_OBJECT_FIELDS.MODULE_NAME);
-		if (newValues.containsKey(MWConstants.MODULE_OBJECT_FIELDS.MODULE_NAME)) newModuleName = (String)newValues.get(MWConstants.MODULE_OBJECT_FIELDS.MODULE_NAME);
+		if (originalValues.containsKey(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_NAME)) originalModuleName = (String)originalValues.get(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_NAME);
+		if (newValues.containsKey(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_NAME)) newModuleName = (String)newValues.get(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_NAME);
 		
 		if (!originalModuleName.equalsIgnoreCase(newModuleName)) return true;
 		
 		String originalModuleCode = "";
 		String newModuleCode = "";
 		
-		if (originalValues.containsKey(MWConstants.MODULE_OBJECT_FIELDS.MODULE_CODE)) originalModuleCode = (String)originalValues.get(MWConstants.MODULE_OBJECT_FIELDS.MODULE_CODE);
-		if (newValues.containsKey(MWConstants.MODULE_OBJECT_FIELDS.MODULE_CODE)) newModuleCode = (String)newValues.get(MWConstants.MODULE_OBJECT_FIELDS.MODULE_CODE);
+		if (originalValues.containsKey(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_CODE)) originalModuleCode = (String)originalValues.get(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_CODE);
+		if (newValues.containsKey(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_CODE)) newModuleCode = (String)newValues.get(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_CODE);
 		
 		if (!originalModuleCode.equalsIgnoreCase(newModuleCode)) return true;
 		
 		String originalModuleLecturer = "";
 		String newModuleLecturer = "";
 		
-		if (originalValues.containsKey(MWConstants.MODULE_OBJECT_FIELDS.MODULE_LECTURER)) originalModuleLecturer = (String)originalValues.get(MWConstants.MODULE_OBJECT_FIELDS.MODULE_LECTURER);
-		if (newValues.containsKey(MWConstants.MODULE_OBJECT_FIELDS.MODULE_LECTURER)) newModuleLecturer = (String)newValues.get(MWConstants.MODULE_OBJECT_FIELDS.MODULE_LECTURER);
+		if (originalValues.containsKey(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_LECTURER)) originalModuleLecturer = (String)originalValues.get(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_LECTURER);
+		if (newValues.containsKey(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_LECTURER)) newModuleLecturer = (String)newValues.get(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_LECTURER);
 		
 		if (!originalModuleLecturer.equalsIgnoreCase(newModuleLecturer)) return true;
 		
 		String originalModuleDepartment = "";
 		String newModuleDepartment = "";
 		
-		if (originalValues.containsKey(MWConstants.MODULE_OBJECT_FIELDS.MODULE_DEPARTMENT)) originalModuleDepartment = (String)originalValues.get(MWConstants.MODULE_OBJECT_FIELDS.MODULE_DEPARTMENT);
-		if (newValues.containsKey(MWConstants.MODULE_OBJECT_FIELDS.MODULE_DEPARTMENT)) newModuleDepartment = (String)newValues.get(MWConstants.MODULE_OBJECT_FIELDS.MODULE_DEPARTMENT);
+		if (originalValues.containsKey(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_DEPARTMENT)) originalModuleDepartment = (String)originalValues.get(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_DEPARTMENT);
+		if (newValues.containsKey(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_DEPARTMENT)) newModuleDepartment = (String)newValues.get(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_DEPARTMENT);
 		
 		if (!originalModuleDepartment.equalsIgnoreCase(newModuleDepartment)) return true;
 		
 		Integer originalCredits = 0;
 		Integer newCredits = 0;
 		
-		if (originalValues.containsKey(MWConstants.MODULE_OBJECT_FIELDS.MODULE_CREDITS)) originalCredits = (Integer)originalValues.get(MWConstants.MODULE_OBJECT_FIELDS.MODULE_CREDITS);
-		if (newValues.containsKey(MWConstants.MODULE_OBJECT_FIELDS.MODULE_CREDITS)) newCredits = (Integer)newValues.get(MWConstants.MODULE_OBJECT_FIELDS.MODULE_CREDITS);
+		if (originalValues.containsKey(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_CREDITS)) originalCredits = (Integer)originalValues.get(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_CREDITS);
+		if (newValues.containsKey(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_CREDITS)) newCredits = (Integer)newValues.get(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_CREDITS);
 		
 		if (originalCredits != newCredits) return true;
 		
 		Boolean originalOnline = false;
 		Boolean newOnline = false;
 
-		if (originalValues.containsKey(MWConstants.MODULE_OBJECT_FIELDS.MODULE_ONLINE)) originalOnline = (Boolean)originalValues.get(MWConstants.MODULE_OBJECT_FIELDS.MODULE_ONLINE);
-		if (newValues.containsKey(MWConstants.MODULE_OBJECT_FIELDS.MODULE_ONLINE)) newOnline = (Boolean)newValues.get(MWConstants.MODULE_OBJECT_FIELDS.MODULE_ONLINE);
+		if (originalValues.containsKey(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_ONLINE)) originalOnline = (Boolean)originalValues.get(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_ONLINE);
+		if (newValues.containsKey(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_ONLINE)) newOnline = (Boolean)newValues.get(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_ONLINE);
 		
 		if (originalOnline != newOnline) return true;
 		
@@ -94,11 +94,11 @@ public class ObjectEntryModelListener extends BaseModelListener<ObjectEntry> {
 			return;
 		}
 		
-		_log.debug("onAfterUpdate for ID: " + originalModel.getObjectEntryId());
+		_log.info("onAfterUpdate for ID: " + originalModel.getObjectEntryId());
 
 		boolean isTrackedFieldChanged = isTrackedFieldChanged(originalModel, model);
 		
-		_log.debug("isTrackedFieldChanged: " + isTrackedFieldChanged);
+		_log.info("isTrackedFieldChanged: " + isTrackedFieldChanged);
 		
 		if (!isTrackedFieldChanged) {	
 			super.onAfterUpdate(originalModel, model);

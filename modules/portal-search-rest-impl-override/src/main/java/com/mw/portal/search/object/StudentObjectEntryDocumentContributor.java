@@ -45,8 +45,7 @@ import org.osgi.service.component.annotations.Reference;
 			Map<String, String> lecturersMap = new HashMap<String, String>(); 
 			Map<String, String> departmentsMap = new HashMap<String, String>(); 
 			
-			
-			_log.debug("objectEntryId: " + objectEntry.getObjectEntryId() + ", model: " + objectEntry.getModelClassName() + ", ManyToMany records: " + relatedObjectEntries.size());
+			_log.info("objectEntryId: " + objectEntry.getObjectEntryId() + ", model: " + objectEntry.getModelClassName() + ", ManyToMany records: " + relatedObjectEntries.size());
 			
 			for (ObjectEntry relatedObjectEntry: relatedObjectEntries) {
 				
@@ -55,20 +54,20 @@ import org.osgi.service.component.annotations.Reference;
 				
 				Map<String, Serializable> relatedObjectEntryValues = objectEntryLocalService.getValues(relatedObjectEntry.getObjectEntryId());
 
-				if (relatedObjectEntryValues.containsKey(MWConstants.MODULE_OBJECT_FIELDS.MODULE_NAME)) {					
+				if (relatedObjectEntryValues.containsKey(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_NAME)) {					
 					if (Validator.isNotNull(moduleNamesCombined)) moduleNamesCombined += ", ";
 					
-					moduleNamesCombined += relatedObjectEntryValues.get(MWConstants.MODULE_OBJECT_FIELDS.MODULE_NAME);
+					moduleNamesCombined += relatedObjectEntryValues.get(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_NAME);
 				}
 				
-				if (relatedObjectEntryValues.containsKey(MWConstants.MODULE_OBJECT_FIELDS.MODULE_CODE)) { 					
+				if (relatedObjectEntryValues.containsKey(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_CODE)) { 					
 					if (Validator.isNotNull(moduleCodesCombined)) moduleCodesCombined += ", ";
 					
-					moduleCodesCombined += relatedObjectEntryValues.get(MWConstants.MODULE_OBJECT_FIELDS.MODULE_CODE);
+					moduleCodesCombined += relatedObjectEntryValues.get(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_CODE);
 				}
 				
-				if (relatedObjectEntryValues.containsKey(MWConstants.MODULE_OBJECT_FIELDS.MODULE_LECTURER)) {
-					String lecturer = (String)relatedObjectEntryValues.get(MWConstants.MODULE_OBJECT_FIELDS.MODULE_LECTURER);
+				if (relatedObjectEntryValues.containsKey(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_LECTURER)) {
+					String lecturer = (String)relatedObjectEntryValues.get(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_LECTURER);
 					
 					if (!lecturersMap.containsKey(lecturer.toLowerCase())) {
 						if (Validator.isNotNull(moduleLecturersDedupCombined)) moduleLecturersDedupCombined += ", ";
@@ -79,8 +78,8 @@ import org.osgi.service.component.annotations.Reference;
 					}
 				}
 				
-				if (relatedObjectEntryValues.containsKey(MWConstants.MODULE_OBJECT_FIELDS.MODULE_DEPARTMENT)) { 
-					String department = (String)relatedObjectEntryValues.get(MWConstants.MODULE_OBJECT_FIELDS.MODULE_DEPARTMENT);
+				if (relatedObjectEntryValues.containsKey(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_DEPARTMENT)) { 
+					String department = (String)relatedObjectEntryValues.get(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_DEPARTMENT);
 					
 					if (!departmentsMap.containsKey(department.toLowerCase())) {
 						if (Validator.isNotNull(moduleDepartmentsDedupCombined)) moduleDepartmentsDedupCombined += ", ";
@@ -91,31 +90,31 @@ import org.osgi.service.component.annotations.Reference;
 					}
 				}
 				
-				if (relatedObjectEntryValues.containsKey(MWConstants.MODULE_OBJECT_FIELDS.MODULE_CREDITS)) {
-					Integer moduleCredits = (Integer)relatedObjectEntryValues.get(MWConstants.MODULE_OBJECT_FIELDS.MODULE_CREDITS);
+				if (relatedObjectEntryValues.containsKey(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_CREDITS)) {
+					Integer moduleCredits = (Integer)relatedObjectEntryValues.get(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_CREDITS);
 
 					credits += Long.valueOf(moduleCredits);
 				}
 				
-				if (relatedObjectEntryValues.containsKey(MWConstants.MODULE_OBJECT_FIELDS.MODULE_ONLINE)) {	
-					Boolean moduleOnline = (Boolean)relatedObjectEntryValues.get(MWConstants.MODULE_OBJECT_FIELDS.MODULE_ONLINE);
+				if (relatedObjectEntryValues.containsKey(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_ONLINE)) {	
+					Boolean moduleOnline = (Boolean)relatedObjectEntryValues.get(MWFieldConstants.MODULE_OBJECT_FIELDS.MODULE_ONLINE);
 
 					if (!moduleOnline) onlineOnly = false;
 				}
 			}
 
-			document.addKeyword(MWConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_NAMES, moduleNamesCombined); 
-			document.addKeyword(MWConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_CODES, moduleCodesCombined); 
-			document.addKeyword(MWConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_LECTURERS, moduleLecturersDedupCombined); 
-			document.addKeyword(MWConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_DEPARTMENTS, moduleDepartmentsDedupCombined); 
+			document.addKeyword(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_NAMES, moduleNamesCombined); 
+			document.addKeyword(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_CODES, moduleCodesCombined); 
+			document.addKeyword(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_LECTURERS, moduleLecturersDedupCombined); 
+			document.addKeyword(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_DEPARTMENTS, moduleDepartmentsDedupCombined); 
 			
-			document.addKeyword(MWConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_CREDITS, credits); 
-			document.addKeyword(MWConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULES_ONLINE_ONLY, onlineOnly); 
+			document.addKeyword(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_CREDITS, credits); 
+			document.addKeyword(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULES_ONLINE_ONLY, onlineOnly); 
 			
-			document.addKeyword(MWConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_COUNT, mappedCount); 
-			document.addKeyword(MWConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_IDS, mappedIds); 
+			document.addKeyword(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_COUNT, mappedCount); 
+			document.addKeyword(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_IDS, mappedIds); 
 					
-			_log.info("Added or updated fields on " + objectEntry.getObjectEntryId() + " Elasticsearch document.");
+			_log.info("Added or updated fields on Student " + objectEntry.getObjectEntryId() + " Elasticsearch document.");
 
 		} catch (PortalException e) {
 			e.printStackTrace();

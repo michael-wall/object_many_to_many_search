@@ -67,6 +67,7 @@ import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.mw.portal.search.object.MWConstants;
+import com.mw.portal.search.object.MWFieldConstants;
 import com.mw.portal.search.rest.dto.v1_0.MWSearchResult;
 
 import java.io.Serializable;
@@ -691,18 +692,18 @@ public class MWSearchResultResourceImpl extends SearchResultResourceImpl {
 			
 			// Only add to the required ObjectEntry type
 			if (Validator.isNotNull(entryClassName) && entryClassName.equalsIgnoreCase(MWConstants.STUDENT_OBJECT_ENTRY_CLASS_NAME)) {
-				searchResult.setModuleNames(document.getString(MWConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_NAMES));
-				searchResult.setModuleCodes(document.getString(MWConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_CODES));
-				searchResult.setModuleLecturers(document.getString(MWConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_LECTURERS));
-				searchResult.setModuleDepartments(document.getString(MWConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_DEPARTMENTS));
+				searchResult.setModuleNames(document.getString(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_NAMES));
+				searchResult.setModuleCodes(document.getString(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_CODES));
+				searchResult.setModuleLecturers(document.getString(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_LECTURERS));
+				searchResult.setModuleDepartments(document.getString(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_DEPARTMENTS));
 				
-				searchResult.setModuleCredits(document.getLong(MWConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_CREDITS));
-				searchResult.setModulesOnlineOnly(document.getBoolean(MWConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULES_ONLINE_ONLY));
+				searchResult.setModuleCredits(document.getLong(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_CREDITS));
+				searchResult.setModulesOnlineOnly(document.getBoolean(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULES_ONLINE_ONLY));
 				
-				searchResult.setModuleCount(document.getLong(MWConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_COUNT));
-				searchResult.setModuleIds(document.getString(MWConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_IDS));
+				searchResult.setModuleCount(document.getLong(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_COUNT));
+				searchResult.setModuleIds(document.getString(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_IDS));
 								
-				_log.info("Added additional fields to headless API SearchResult...");
+				_log.info("Added additional fields to headless API SearchResult for Student...");
 			}
 
 			searchResults.add(searchResult);
