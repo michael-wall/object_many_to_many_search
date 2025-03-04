@@ -35,6 +35,7 @@ where:
 - Liferay DXP version: 2025.Q1.0
 - JDK: 21
 - Liferay Dev Studio: Version: 3.9.8.202212271250-ga9
+- The POC uses the default language i.e. en-US.
 
 ## Setup Steps ##
 1. Setup a Liferay DXP
@@ -59,3 +60,135 @@ com.liferay.portal.search.rest.internal.resource.v1_0.SearchResultResourceImpl
 - ObjectRelationshipLocalServiceServiceWrapper.java: Used to identify mapping addition, mapping deletion and Module deletion so the mapped Student records can be reindex in Elasticsearch.
 - StudentObjectEntryDocumentContributor.java: Adds the additional fields to the Student Elasticsearch document. 
 - StudentObjectEntryKeywordQueryContributor.java: Makes the additional fields searchable fields for the Student ObjectDefinition.
+
+## Headless Search ##
+To Perform a search using the Headless Search API:
+1. Enable Instance Settings > Feature Flags > Release > Search Headless API (LPS-179669)
+2. Go to Applications > Blueprints
+3. Add a Custom Element using the sample moduleDepartments_customElement.txt
+4. Add a Blueprint using the Custom Element from above and with the matching sample moduleDepartments_parameterConfiguration.txt for the Configuration > Parameter Configuration.
+5. Save the Blueprint and note the ERC.
+6. Go to Headless Search API e.g. http://localhost:8080/o/api?endpoint=http://localhost:8080/o/search/v1.0/openapi.json
+7. Expand Search Result > postSearchResult and paste in the following into the Request Body field, replacing the ERC with the one from above:
+
+```
+{
+  "attributes": {
+    "search.experiences.blueprint.external.reference.code": "423ff6e9-7e2e-1322-93a3-4f7c1707be38",
+	"search.experiences.moduleDepartment":"commerce"
+  }
+}
+```
+
+8. Enter * in the Search field and Click Execute.
+9. All records which contain Commerce in the moduleDepartments field will be returned, including the additional fields.
+10. Sample response:
+
+```
+{
+  "items": [
+    {
+      "dateCreated": "2025-03-04T14:26:07Z",
+      "dateModified": "2025-03-04T14:26:07Z",
+      "description": "studentName: Filipe, studentNumber: LR-1003",
+      "moduleCount": 4,
+      "moduleCredits": 26,
+      "moduleDepartments": "Commerce, Medicine, Arts",
+      "moduleIds": "34778,34782,34792,34794",
+      "moduleLecturers": "Arthur Carr, Elaine White, Arthur Fent, Harry Hole",
+      "moduleNames": "Intermediate Accounting 102, Intro to Medicine 101, Irish Music 101, History & Politics 101",
+      "modulesOnlineOnly": false,
+      "score": 4.8652306,
+      "title": "Filipe"
+    },
+    {
+      "dateCreated": "2025-03-04T14:27:39Z",
+      "dateModified": "2025-03-04T14:27:39Z",
+      "description": "studentName: Niamh, studentNumber: LR-1009",
+      "moduleCount": 5,
+      "moduleCredits": 29,
+      "moduleDepartments": "Commerce, Medicine, Arts",
+      "moduleIds": "34775,34784,34786,34792,34794",
+      "moduleLecturers": "Roger Babbage, Sally Greene, Max Kerr, Arthur Fent, Harry Hole",
+      "moduleNames": "Basis Accounting 101, Biology 101, Fundamentals of Philosophy 101, Irish Music 101, History & Politics 101",
+      "modulesOnlineOnly": false,
+      "score": 4.8652306,
+      "title": "Niamh"
+    },
+    {
+      "dateCreated": "2025-03-04T14:25:36Z",
+      "dateModified": "2025-03-04T14:25:36Z",
+      "description": "studentName: Michael, studentNumber: LR-1001",
+      "moduleCount": 3,
+      "moduleCredits": 23,
+      "moduleDepartments": "Commerce",
+      "moduleIds": "34775,34778,34780",
+      "moduleLecturers": "Roger Babbage, Arthur Carr, Peter Gregory",
+      "moduleNames": "Basis Accounting 101, Intermediate Accounting 102, Advanced Accounting 103",
+      "modulesOnlineOnly": false,
+      "score": 4.8652306,
+      "title": "Michael"
+    },
+    {
+      "dateCreated": "2025-03-04T14:26:46Z",
+      "dateModified": "2025-03-04T14:26:46Z",
+      "description": "studentName: Evelyn, studentNumber: LR-1006",
+      "moduleCount": 3,
+      "moduleCredits": 23,
+      "moduleDepartments": "Commerce",
+      "moduleIds": "34775,34778,34780",
+      "moduleLecturers": "Roger Babbage, Arthur Carr, Peter Gregory",
+      "moduleNames": "Basis Accounting 101, Intermediate Accounting 102, Advanced Accounting 103",
+      "modulesOnlineOnly": false,
+      "score": 4.8652306,
+      "title": "Evelyn"
+    },
+    {
+      "dateCreated": "2025-03-04T14:27:13Z",
+      "dateModified": "2025-03-04T14:27:13Z",
+      "description": "studentName: Daniel, studentNumber: LR-1008",
+      "moduleCount": 5,
+      "moduleCredits": 42,
+      "moduleDepartments": "Commerce, Medicine, Arts",
+      "moduleIds": "34775,34782,34788,34790,34794",
+      "moduleLecturers": "Roger Babbage, Elaine White, Joanne Jett, Joe Smith, Harry Hole",
+      "moduleNames": "Basis Accounting 101, Intro to Medicine 101, European Studies 101, Creative Writing 101, History & Politics 101",
+      "modulesOnlineOnly": false,
+      "score": 4.8652306,
+      "title": "Daniel"
+    },
+    {
+      "dateCreated": "2025-03-04T14:26:28Z",
+      "dateModified": "2025-03-04T14:26:28Z",
+      "description": "studentName: Leanne, studentNumber: LR-1005",
+      "moduleCount": 4,
+      "moduleCredits": 30,
+      "moduleDepartments": "Commerce, Medicine, Arts",
+      "moduleIds": "34775,34782,34786,34790",
+      "moduleLecturers": "Roger Babbage, Elaine White, Max Kerr, Joe Smith",
+      "moduleNames": "Basis Accounting 101, Intro to Medicine 101, Fundamentals of Philosophy 101, Creative Writing 101",
+      "modulesOnlineOnly": false,
+      "score": 4.8652306,
+      "title": "Leanne"
+    },
+    {
+      "dateCreated": "2025-03-04T14:26:54Z",
+      "dateModified": "2025-03-04T14:26:54Z",
+      "description": "studentName: Tarun, studentNumber: LR-1007",
+      "moduleCount": 3,
+      "moduleCredits": 23,
+      "moduleDepartments": "Commerce",
+      "moduleIds": "34775,34778,34780",
+      "moduleLecturers": "Roger Babbage, Arthur Carr, Peter Gregory",
+      "moduleNames": "Basis Accounting 101, Intermediate Accounting 102, Advanced Accounting 103",
+      "modulesOnlineOnly": false,
+      "score": 4.8652306,
+      "title": "Tarun"
+    }
+  ],
+  "lastPage": 1,
+  "page": 1,
+  "pageSize": 20,
+  "totalCount": 7
+}
+```
