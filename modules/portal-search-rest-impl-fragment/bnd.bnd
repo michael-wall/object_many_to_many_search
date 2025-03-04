@@ -1,0 +1,9 @@
+Bundle-Name: portal-search-rest-impl-fragment
+Bundle-SymbolicName: portal.search.rest.impl.fragment
+Bundle-Version: 1.0.0
+Fragment-Host: com.liferay.portal.search.rest.impl;bundle-version="1.0.56"
+Export-Package: \
+com.liferay.portal.search.rest.internal.facet,\
+com.liferay.portal.search.rest.internal.odata.entity.v1_0,\
+com.liferay.portal.search.rest.internal.util,\
+com.liferay.portal.search.rest.internal.resource.v1_0

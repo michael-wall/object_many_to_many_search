@@ -1,0 +1,4 @@
+Bundle-Name: portal-search-rest-impl-override
+Bundle-SymbolicName: portal.search.rest.impl.override
+Bundle-Version: 1.0.0
+Export-Package: com.mw.portal.search.rest.internal.resource.v1_0
