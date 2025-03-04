@@ -1,6 +1,6 @@
 Introduction:
 - This is a Proof of Concept (POC) to index additional fields into Elasticsearch documents from a Many to Many Objects relationship and expose those fields to the Headless API search.
-- The POC uses entities Student and Module with a Many to Many relationship defined from Student to Module.
+- The POC uses Company scoped entities Student and Module with a Many to Many relationship defined from Student to Module.
 - A set of custom fields related to the Students mapped Modules are added to the Student Elasticsearch Document.
 - If a Student to Module mapping is added the Student record is reindexed to reflect the change in the Student Elasticsearch document.
 - If a Student to Module mapping is removed the Student record is reindexed to reflect the change in the Student Elasticsearch document.
