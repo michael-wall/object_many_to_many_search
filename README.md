@@ -1,7 +1,8 @@
 # Introduction #
 - This is a Proof of Concept (POC) to index additional fields into Elasticsearch documents from a Many to Many Objects relationship and expose those fields to the Headless API search.
+- The additional fields are included in the search results and are searchable.
 - The POC uses Company scoped entities Student and Module with a Many to Many relationship defined from Student to Module.
-- A set of custom fields related to the Students mapped Modules are added to the root of Student Elasticsearch Document.
+- A set of custom fields related to a Students set of mapped Modules are added to the root of Student Elasticsearch Document.
 - If a Student to Module mapping is added the Student record is reindexed to reflect the change in the Student Elasticsearch document.
 - If a Student to Module mapping is removed the Student record is reindexed to reflect the change in the Student Elasticsearch document.
 - If a Module is updated, the mapped Student records are each reindexed to reflect the changes in the mapped Student Elasticsearch documents.
@@ -11,13 +12,15 @@ Additional Student Elasticsearch Fields:
 
 ```
 {
+...
 "moduleCount": 3,
 "moduleCredits": 19,
 "moduleDepartments": "Commerce",
 "moduleIds": "34775,34778,34780",
 "moduleLecturers": "Roger White, Arthur Carr, Peter Gregory",
 "moduleNames": "Basis Accounting 101, Intermediate Accounting 102, Advanced Accounting 103",
-"modulesOnlineOnly": false
+"modulesOnlineOnly": false,
+...
 }
 ```
 
@@ -38,16 +41,17 @@ where:
 - The POC uses the default language i.e. en-US.
 
 ## Setup Steps ##
-1. Setup a Liferay DXP
-2. Go to Objects and import Objects Folder using 'Object_Folder_ManyToManyPOC_34502_20250304154433737.json'
-3. Blacklist Component:
+1. Setup a Liferay DXP 2025.Q1.0
+2. Go to Instance Settings > Feature Flags > Release and enable Search Headless API (LPS-179669)
+3. Go to Objects and import Objects Folder using 'Object_Folder_ManyToManyPOC_34502_20250304154433737.json' (from repository objects folder)
+4. Blacklist Component:
 com.liferay.portal.search.rest.internal.resource.v1_0.SearchResultResourceImpl
-4. Update the constants in MWConstants.java based on the details in the environment, build and deploy the OSGi modules
+5. Update the constants in MWConstants.java based on the details in the environment, build and deploy the OSGi modules
 - STUDENT_OBJECT_ENTRY_CLASS_NAME: Go to Control Panel > Configuration Search > Index Actions, search for 'Student' and copy it's Object Definition value without the brackets e.g. com.liferay.object.model.ObjectDefinition#G9X2
 - MODULE_OBJECT_DEFINITION_ID: The 'ID' value from the Module Object Definition.
 - MANY_TO_MANY_RELATIONSHIP_ID: Go to Control Panel > Objects > Student > Relationships. Open Chrome Dev Tools > Network and open the student_modules relationship. Find the /manage request in the Network traffic and copy the objectRelationshipId request parameter value e.g. 34614.
 - MANY_TO_MANY_REVERSE_RELATIONSHIP_ID: Go to Control Panel > Objects > Module > Relationships. Open Chrome Dev Tools > Network and open the student_modules relationship. Find the /manage request in the Network traffic and copy the objectRelationshipId request parameter value e.g. 34615.
-5. Create or Import Students and Module records
+6. Create or Import Students and Module records
 
 ## OSGi Components & Modules ##
 1. portal-search-rest-impl-fragment / portal.search.rest.impl.fragment-1.0.0.jar: OSGi fragment module to export 'internal' packages used by MWSearchResultResourceImpl.
@@ -65,8 +69,8 @@ com.liferay.portal.search.rest.internal.resource.v1_0.SearchResultResourceImpl
 To Perform a search using the Headless Search API:
 1. Enable Instance Settings > Feature Flags > Release > Search Headless API (LPS-179669)
 2. Go to Applications > Blueprints
-3. Add a Custom Element using the sample moduleDepartments_customElement.txt
-4. Add a Blueprint using the Custom Element from above and with the matching sample moduleDepartments_parameterConfiguration.txt for the Configuration > Parameter Configuration.
+3. Add a Custom Element using the sample moduleDepartments_customElement.txt (from repository blueprints folder)
+4. Add a Blueprint using the Custom Element from above and with the matching sample moduleDepartments_parameterConfiguration.txt (from repository blueprints folder) for the Configuration > Parameter Configuration.
 5. Save the Blueprint and note the ERC.
 6. Go to Headless Search API e.g. http://localhost:8080/o/api?endpoint=http://localhost:8080/o/search/v1.0/openapi.json
 7. Expand Search Result > postSearchResult and paste in the following into the Request Body field, replacing the ERC with the one from above:
