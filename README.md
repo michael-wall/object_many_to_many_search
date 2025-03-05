@@ -39,6 +39,7 @@ where:
 - JDK: 21
 - Liferay Dev Studio: Version: 3.9.8.202212271250-ga9
 - The POC uses the default language i.e. en-US.
+- The POC can be deployed in Liferay PaaS or self hosted. It uses custom OSGi modules so it is not compatible with Liferay PaaS.
 
 ## Setup Steps ##
 1. Setup a Liferay DXP 2025.Q1.0
