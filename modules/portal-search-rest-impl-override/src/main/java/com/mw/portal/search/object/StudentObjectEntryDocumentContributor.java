@@ -103,6 +103,8 @@ import org.osgi.service.component.annotations.Reference;
 				}
 			}
 
+			// Update the fields even if relatedObjectEntries is 0 (in case a mapping was removed etc.)
+			
 			document.addKeyword(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_NAMES, moduleNamesCombined); 
 			document.addKeyword(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_CODES, moduleCodesCombined); 
 			document.addKeyword(MWFieldConstants.STUDENT_CUSTOM_SEARCH_FIELDS.MODULE_LECTURERS, moduleLecturersDedupCombined); 
