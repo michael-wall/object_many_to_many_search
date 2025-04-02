@@ -1,7 +1,6 @@
 package com.mw.portal.search.object;
 
 import com.liferay.object.model.ObjectEntry;
-import com.liferay.object.model.ObjectRelationship;
 import com.liferay.object.service.ObjectEntryLocalService;
 import com.liferay.object.service.ObjectRelationshipLocalService;
 import com.liferay.object.service.ObjectRelationshipLocalServiceWrapper;
@@ -50,9 +49,7 @@ public class ObjectRelationshipLocalServiceServiceWrapper extends ObjectRelation
 		
 		List<ObjectEntry> relatedObjectEntries = null;
 		
-		if (objectRelationshipId == MWConstants.MANY_TO_MANY_REVERSE_RELATIONSHIP_ID) {
-			ObjectRelationship objectRelationship = objectRelationshipLocalService.fetchObjectRelationship(objectRelationshipId);
-						
+		if (objectRelationshipId == MWConstants.MANY_TO_MANY_REVERSE_RELATIONSHIP_ID) {						
 			relatedObjectEntries = objectEntryLocalService.getManyToManyObjectEntries(MWConstants.GROUP_ID, MWConstants.MANY_TO_MANY_REVERSE_RELATIONSHIP_ID, primaryKey1, true, true, null, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 		}
 		
