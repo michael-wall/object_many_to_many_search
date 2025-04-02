@@ -80,7 +80,7 @@ To Perform a search using the Headless Search API:
 {
   "attributes": {
     "search.experiences.blueprint.external.reference.code": "423ff6e9-7e2e-1322-93a3-4f7c1707be38",
-	"search.experiences.moduleDepartment":"commerce"
+	"search.experiences.moduleDepartments":"commerce"
   }
 }
 ```
